@@ -1,3 +1,5 @@
+#!/usr/bin/env perl
+#
 # An IRC bot that retrieves the status of various systems from
 # status.w3.org (an instance of Atlassian Statuspage) and writes a
 # message on IRC whenever there is a change in the status. It can also
@@ -83,7 +85,7 @@ sub report_changes($$)
       # This is not the first time we get the Atom feed. Subtract the
       # previous entry and use the difference as the message.
       my $old = $self->{entries}->{$id};	# Get remembered entry
-      $msg =~ s/\Q$old\E//;			# Get diff between old and new
+      $msg =~ s/\Q$old\E// if $old;		# Get diff between old and new
       $msg =~ s/<br>/ /g;			# Newlines become spaces
       $msg =~ s/<\/p>/\n/g;			# Paragraphs become newlines
       $msg =~ s/<[^>]+>//g;			# Remove all other tags
