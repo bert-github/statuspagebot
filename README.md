@@ -8,12 +8,20 @@ formatted version, use
 
     perldoc -oman ./statuspagebot.pl
 
-In short: run it with something like
+Currently, the bot **polls** the statuspage server (by default every
+two minutes), which is not very efficient. The data transferred each
+time is less than 1KB, but still. A rewrite to let the statuspage
+server **push** updates instead (via email or a webhook) would be
+nice. (Although it requires that statuspagebot runs on a server that
+can receive email or HTTP requests.)
+
+Short instructions: To get status data from status.w3.org and display
+it on the IRC server at irc.w3.org, run something like
 
     ./statuspagebot.pl -v -s https://status.w3.org/ ircs://mylogin@irc.w3.org/
 
-and enter your password for the irc.w3.org server. Then, on IRC,
-invite the bot to a channel with
+and enter your password for the IRC server. Then, on IRC, invite the
+bot to a channel with
 
     /invite statuspagebot
 
@@ -24,7 +32,8 @@ latest status is:
     statuspagebot, status?
 
 To run the bot, you will need perl and some perl modules. The one that
-is probably not installed yet is XML::Feed. On Debian and similar
-systems, you can (as root) use a command such as:
+you probably do not have installed by default is XML::Feed. On Debian
+and similar systems, you can (as root) install it with a command such
+as:
 
     apt install libxml-feed-perl
